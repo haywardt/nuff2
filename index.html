@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/index.css" />
+    <link rel="manifest" href="/manifest.json" />
+    <link
+      rel="shortcut icon"
+      href="https://cdn.glitch.com/355b9f14-b08b-4590-9270-46454889b15e%2Ffavicon.ico?1495985662065"
+    />
+    <script src="/nuff.js"></script>
+    <script src="/index.js"></script>
+    
+    <script>
+      // This is just to force HTTPS (can't do it statically on glitch)
+      if (location.protocol == "http:") location.protocol = "https:";
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then(reg => console.log("Service Worker registered", reg))
+          .catch(err =>
+            console.error("Service Worker **not** registered", err)
+          );
+      } else {
+        console.warn("Service Worker not supported in this browser");
+      }
+    </script>
+    <title>Simplest PWA</title>
+    <meta name="theme-color" content="lightblue" />
+  </head>
+  <body>
+    <script></script>
+    <h1>
+      Welcome to possibly the simplest progressive web app
+    </h1>
+    <p>
+      It
+    </p>
+    <ol>
+      <li>
+        Works offline; the assets are installed when the service worker is
+        registered; and fetched from cache or network
+      </li>
+      <li>
+        Is installable; the manifest defines what to launch and how it should
+        appear on the users system
+      </li>
+      <li>Is just this.</li>
+    </ol>
+    <h1>
+      
+    Welcome <span name="First Name"></span>
+    </h1>
+    <h2>You are <span name="age"></span></h2>
+      <div>
+      
+      Name:<br /><input name="First Name" placeholder="First Name" type="text"/>
+      <input type="text" name="Last Name" placeholder="Last Name" />
+      <br />Age: <input type="radio" name="age" value="young" />0-20
+      <input type="radio" name="age" value="adult" />21+
+      <br />
+      <input type="checkbox" value="accepted" name="Ts&Cs" />I accept the Terms and Conditions
+    </div>
+    
+    <p name="paragraph"></p>
+  </body>
+  <script>
+let text=`Any changes in these fields will be immeadiatley relected in state object. The property names are the
+names of the html elements. Similarly, any change made to the state object will be reflected in the elements. Try it by examining the state object after entering some data on the form, then change some of the values of the properties and see those changes on the form.\n\n
+
+try: state["First Name"]="Harriet" \n or \n state["Ts&Cs"]="true" \n state["paragraph"]="some long story"`
+
+console.log(text)</script>
+</html>
