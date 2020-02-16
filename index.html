@@ -11,10 +11,11 @@
     />
     <script src="/nuff.js"></script>
     <script src="/index.js"></script>
-    
+
     <script>
       // This is just to force HTTPS (can't do it statically on glitch)
       if (location.protocol == "http:") location.protocol = "https:";
+      /*   ---- DISABLE SERVICE WORKER WHILE DEVELOPING MAIN ----
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
           .register("/sw.js")
@@ -25,8 +26,9 @@
       } else {
         console.warn("Service Worker not supported in this browser");
       }
+      */
     </script>
-    <title>Simplest PWA</title>
+    <title>Nuff +n Simplest PWA</title>
     <meta name="theme-color" content="lightblue" />
   </head>
   <body>
@@ -48,28 +50,49 @@
       </li>
       <li>Is just this.</li>
     </ol>
-    <h1>
-      
-    Welcome <span name="First Name"></span>
-    </h1>
+    <h1>Welcome <span name="First Name"></span></h1>
     <h2>You are <span name="age"></span></h2>
-      <div>
-      
-      Name:<br /><input name="First Name" placeholder="First Name" type="text"/>
+    <div>
+      Name:<br /><input
+        name="First Name"
+        placeholder="First Name"
+        type="text"
+      />
       <input type="text" name="Last Name" placeholder="Last Name" />
       <br />Age: <input type="radio" name="age" value="young" />0-20
       <input type="radio" name="age" value="adult" />21+
       <br />
-      <input type="checkbox" value="accepted" name="Ts&Cs" />I accept the Terms and Conditions
+      <input type="checkbox" value="accepted" name="Ts&Cs" />I accept the Terms
+      and Conditions
     </div>
-    
+
     <p name="paragraph"></p>
+    <p name="paragraph" contenteditable>
+    </p>
+    <div>
+      <h1>
+        Shopping Cart
+      </h1>
+      <template name="cart">
+        <div>
+          <div name="cart[].qty"></div>
+          <div name="cart[].desc"></div>
+          <div name="cart[].cost"></div>
+        </div>
+      </template>
+      <div>
+        <div name="cart[0].qty"></div>
+        <div name="cart[0].desc"></div>
+        <div name="cart[0].cost"></div>
+      </div>
+    </div>
   </body>
   <script>
-let text=`Any changes in these fields will be immeadiatley relected in state object. The property names are the
+    let text = `Any changes in these fields will be immeadiatley relected in state object. The property names are the
 names of the html elements. Similarly, any change made to the state object will be reflected in the elements. Try it by examining the state object after entering some data on the form, then change some of the values of the properties and see those changes on the form.\n\n
 
-try: state["First Name"]="Harriet" \n or \n state["Ts&Cs"]="true" \n state["paragraph"]="some long story"`
+try: state["First Name"]="Harriet" \n or \n state["Ts&Cs"]="true" \n state["paragraph"]="some long story"`;
 
-console.log(text)</script>
+    console.log(text);
+  </script>
 </html>
