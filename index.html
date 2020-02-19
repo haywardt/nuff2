@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="/nuff.css" />
     <link rel="manifest" href="/manifest.json" />
     <link
       rel="shortcut icon"
@@ -14,7 +14,7 @@
 
     <script>
       // This is just to force HTTPS (can't do it statically on glitch)
-      if (location.protocol == "http:") location.protocol = "https:";
+      /*if (location.protocol == "http:") location.protocol = "https:";
       /*   ---- DISABLE SERVICE WORKER WHILE DEVELOPING MAIN ----
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -33,6 +33,12 @@
   </head>
   <body>
     <script></script>
+    <h1>
+      Foiled again!</h1>
+    <p>
+       I just learned that I cant style checkboxes and radiobuttons. You have to style an inner or outer element. This makes my idea
+      of generating the app with only HTML unworkable. Time to procede to nuff3 and a different model.
+    </p>
     <h1>
       Welcome to possibly the simplest progressive web app
     </h1>
@@ -63,7 +69,8 @@
       <input type="radio" name="age" value="adult" />21+
       <br />
       <input type="checkbox" value="accepted" name="Ts&Cs" />I accept the Terms
-      and Conditions
+      and Conditions<br>
+      <input type="checkbox" value="requested" name="fullRefresh" />Please provie a full refresh of the app.
     </div>
 
     <p name="paragraph"></p>  

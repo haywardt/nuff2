@@ -1,0 +1,1 @@
+{"defaultValue":"some value for default","groupSecret":"global","First Name":"Timothy","Last Name":"Hayward","Ts&Cs":"accepted","age":"adult","paragraph":"Persistance is now working in contentEditable\nMaybe updateServer() should be triggered by serverChanged not clientChanged? It should because serverChanged is really stateChangedbyProxy","g_cartname":"Tim","fullRefresh":""}

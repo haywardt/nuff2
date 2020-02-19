@@ -1,11 +1,3 @@
-client         server
-name: tim ----> |
-name:tim<-------+  clientState
-
-ServerState
-
-name:hayward<-----+
-
 # Did you come to Help?!
 
 Use the area below as a chat window. Most recent comments at the top.
@@ -21,6 +13,8 @@ Tim: Thanks for offering to help!
 
 # To Do
 
+
+- ~~write an api that resets client state from server~~
 - ~~update innerText rather than innerHTML on content objects.~~
 - ~~<div,p,> dont support `name` property. Use `data-name` instead~~
 - ignore proxy calls when changes dont occur
@@ -31,7 +25,10 @@ Tim: Thanks for offering to help!
 - ~~figure out repeating elements~~
 - create a state.get that retrieves arraylike keys into an array
 - ~~figure out where `state` and `api` are glued together.~~
-- write an Object diff function so duplicate property/value pairs are not sent
+- ~~write an Object diff function so duplicate property/value pairs are not sent~~
+- build a style sheet
+- build an "includer" that makes the index.html look very simple.
+- figure out why manifest.json sometimes creates a new cookie
 
 # Good-Nuff
 

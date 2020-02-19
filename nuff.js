@@ -5,7 +5,7 @@ var serverState = {};
 
 const stateHandler = {
   set: function(obj, prop, value) {
-    serverChanged(obj, prop, value.toString());
+    serverChanged(obj, prop, value);
   }
 };
 
@@ -22,19 +22,30 @@ function diffStates(oldState, newState) {
 
 function combineStates(obj1, obj2) {
   // returns an object with all the properties of both input objects
-  let separator = ","
+  let separator = ",";
   let obj1str = JSON.stringify(obj1);
   let obj2str = JSON.stringify(obj2);
-  if(obj1str.length===2||obj2str.length===2) separator = "";
+  if (obj1str.length === 2 || obj2str.length === 2) separator = "";
   return JSON.parse(
     obj1str.substr(0, obj1str.length - 1) +
       separator +
       obj2str.substr(1, obj2str.length - 1)
   );
 }
+function getServerState() {
+  fetch(url)
+    .then(res => res.json())
+    .then(function(res) {
+      serverState = combineStates(res, serverState);
+      for (let prop in res) {
+        state[prop] = res[prop];
+      }
+    });
+}
 // send POST request
-function updateServer() { // send what has changed on the serverState
-  let changes=diffStates(serverState,state);
+function updateServer() {
+  // send what has changed on the serverState
+  let changes = diffStates(serverState, state);
   let options = {
     method: "POST",
     body: JSON.stringify(changes),
@@ -42,14 +53,16 @@ function updateServer() { // send what has changed on the serverState
       "Content-Type": "application/json"
     }
   };
- 
+
   fetch(url, options)
     .then(res => res.json())
-    .then(function(res){
-      serverState=combineStates(res,serverState)
-  })
+    .then(function(res) {
+      serverState = combineStates(res, serverState);
+      for (let prop in res) {
+        state[prop] = res[prop];
+      }
+    });
 }
-
 
 function clientChanged() {
   console.log("client changed");
@@ -61,7 +74,7 @@ function clientChanged() {
       state[this.getAttribute("name")] = event.target.innerText;
     else state[event.target.name] = event.target.value;
   }
-}
+updateServer();}
 
 function addBlurListener(elem) {
   var fields = elem.querySelectorAll("[contenteditable]");
@@ -72,8 +85,12 @@ function addBlurListener(elem) {
 
 function serverChanged(obj, prop, value) {
   console.log("server changed");
-  hiddenState[prop] = value;
-
+  if (value) {
+    hiddenState[prop] = value.toString();
+  } else {
+    hiddenState[prop] = "";
+  }
+  console.log(prop);
   // psuedo arrays are handled here.
   // check to see if this data needs to create a new element because an array item has grown
 
@@ -136,13 +153,18 @@ function serverChanged(obj, prop, value) {
   for (let checkbox of checkCheckboxes) {
     checkbox.checked = value;
   }
-  var checkRadios = document.querySelectorAll(
-    'input[name="' + prop + '"][value="' + value.slice(0, 12) + '"][type=radio]'
-  );
-  for (let radio of checkRadios) {
-    radio.checked = "true";
+  if (value) {
+    var checkRadios = document.querySelectorAll(
+      'input[name="' +
+        prop +
+        '"][value="' +
+        value.substr(0, 12) +
+        '"][type=radio]'
+    );
+    for (let radio of checkRadios) {
+      radio.checked = "true";
+    }
   }
-
   // update things that need their innerText updated. (innerHTML might be a security risk)
   var htmlContent = document.querySelectorAll(
     '[name="' + prop + '"]:not(input):not(button)'
@@ -159,4 +181,5 @@ document.addEventListener("DOMContentLoaded", function() {
   document.querySelector("body").addEventListener("change", clientChanged);
 
   addBlurListener(document.querySelector("body"));
+  getServerState();
 });
